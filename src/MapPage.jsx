@@ -42,7 +42,7 @@ const MapPage = () => {
           {/* Display selected latitude and longitude */}
           {position &&
             <div>
-              선택된 주소<br></br> 위도 {position.lat} <br></br> 경도 {position.lng}
+              선택된 주소: 위도 {position.lat}, 경도 {position.lng}
             </div>
           }
         </div>
