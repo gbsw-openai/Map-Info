@@ -1,24 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import Main from './Main.jsx';
+import MapPage from './MapPage.jsx';
+import Login from './Login.jsx';
+import Signup from './Signup.jsx';
 
 function App() {
+  const [Page, setCurrentPage] = useState('main'); // 기본값은 'main'
+
+  const ClickPageButtn = (page) => {
+    setCurrentPage(page);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <>
+      <header>
+        <img alt="Logo" href="./public/logo.png"/>
+        <div className="header-menuButton">
+          <div onClick={() => ClickPageButtn('main')}>MainPage</div>
+          <div onClick={() => ClickPageButtn('map')}>MapPage</div>
+          <div>Page</div>
+          <div>Page</div>
+          <div className="login-div">
+            <div className="Signin-Button" onClick={() => ClickPageButtn('login')}>Login</div>
+            <div className="Register-Button" onClick={() => ClickPageButtn('signup')}>Signup</div>
+          </div>
+        </div>
       </header>
-    </div>
+
+      {Page === 'main' && <Main />}
+      {Page === 'map' && <MapPage />}
+      {Page === 'login' && <Login />}
+      {Page === 'signup' && <Signup />}
+    </>
   );
 }
 
