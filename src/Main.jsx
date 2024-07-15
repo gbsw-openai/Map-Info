@@ -4,13 +4,10 @@ function Main() {
   return (
     <>
       <div className="title">
-        <div className="title-font">TITLE</div>
-        <div className="title-font-small">small title </div>
+        <div className="title-font">Map-Info</div>
+        <div className="title-font-small">All information at a glance</div>
       </div>
       <div className="contents">
-        <div>contents</div>
-        <div>contents</div>
-        <div>contents</div>
         <div>contents</div>
         <div>contents</div>
       </div>

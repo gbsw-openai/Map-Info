@@ -8,7 +8,7 @@ function Signup() {
         <h2 className="login-title">Sign Up</h2>
       
         <div className="login-field">
-          <label htmlFor="username">Username:</label>
+          <label htmlFor="sinup-username">Username:</label>
           <input type="text" id="username" name="username" required placeholder="아이디"/>
         </div>
         
