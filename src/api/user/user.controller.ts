@@ -23,16 +23,4 @@ const range = async (req: Request, res: Response) => {
   res.json(service)
 }
 
-const get = async (req: Request, res: Response) => {
-  const service = await userService.get(+req.params.idx)
-
-  res.json(service)
-}
-
-const picture = async (req: Request, res: Response) => {
-  const service = await userService.updateUserPic(+req.params.idx, req.file?.path)
-
-  res.status(201).json(service)
-}
-
-module.exports = { register, login, range, get, picture }
+module.exports = { register, login, range }

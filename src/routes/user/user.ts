@@ -5,7 +5,6 @@ const userController = require('../../api/user/user.controller')
 
 router.post('/register', userController.register)
 router.post('/login', userController.login)
-router.get('/range/:idx', userController.range)
-router.get('/:idx', userController.get)
+router.get('/:idx', userController.range)
 
 module.exports = router
