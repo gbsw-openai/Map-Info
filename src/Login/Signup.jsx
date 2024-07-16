@@ -24,7 +24,7 @@ function Signup() {
 
     // 비밀번호 확인
     if (formData.password !== formData.confirmPassword) {
-      alert('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
+      alert('비밀번호가 서로 일치하지 않습니다.');
       return;
     }
 
