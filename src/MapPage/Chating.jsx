@@ -1,40 +1,42 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 const Chating = () => {
-  const [chatLog, setChatLog] = useState([]); //채팅 로그 상태
-  const [input, setInput] = useState(''); // 입력상태
-  const chatLogRef = useRef(null);
+  // 채팅 로그 상태 초기화, 쿠키에서 데이터 가져오기
+  const [chatLog, setChatLog] = useState(() => {
+    const savedChatLog = Cookies.get('chatLog');
+    return savedChatLog ? JSON.parse(savedChatLog) : [];
+  });
 
+  const [input, setInput] = useState(''); // 입력값 상태
+  const chatLogRef = useRef(null); // 채팅 로그 참조
+
+  // 입력값 변경 핸들러
   const handleInputChange = (e) => {
     setInput(e.target.value);
   };
 
+  // 메시지 전송 핸들러
   const handleSendMessage = async () => {
-    if (input.trim() === '') return; // 공백 확인
+    if (input.trim() === '') return; // 공백 메시지 확인
 
-    // 사용자 채팅을 로그에 추가
     const newChatLog = [...chatLog, { role: 'user', content: input }];
     setChatLog(newChatLog);
 
-    // 대화 로그에 system 메시지 추가
-    const messages = [
-      { role: 'system', content: 'You are a friendly and professional tour guide.' },
-      ...newChatLog.map(chat => ({
-        role: chat.role,
-        content: chat.content
-      }))
-    ];
-
-    // 입력 필드 초기화
-    setInput('');
+    setInput(''); // 입력값 초기화
     chatLogRef.current.scrollTop = chatLogRef.current.scrollHeight;
 
-    // API 요청 전에 messages 배열 로그 출력
+    // 메시지 배열 생성 (사용자 메시지와 시스템 메시지)
+    const messages = [
+      { role: 'system', content: 'You are a friendly and professional tour guide.' },
+      ...newChatLog.map(chat => ({ role: chat.role, content: chat.content }))
+    ];
+
     console.log('Sending messages:', messages);
 
-    // OpenAI API 요청 보내기
     try {
+      // OpenAI API를 통해 메시지 전송
       const response = await axios.post('https://api.openai.com/v1/chat/completions', {
         model: 'gpt-3.5-turbo',
         messages: messages,
@@ -45,39 +47,35 @@ const Chating = () => {
           'Content-Type': 'application/json',
         },
       });
-    
-      const aiResponse = response.data.choices[0].message.content.trim();
 
-      // AI 응답을 로그에 추가
+      // AI의 응답을 채팅 로그에 추가
+      const aiResponse = response.data.choices[0].message.content.trim();
       setChatLog([...newChatLog, { role: 'assistant', content: aiResponse }]);
 
+      // 채팅창 스크롤 아래로 이동
       setTimeout(() => {
         chatLogRef.current.scrollTop = chatLogRef.current.scrollHeight;
       }, 100);
-      
+
+      // 채팅 로그를 쿠키에 저장
+      Cookies.set('chatLog', JSON.stringify([...newChatLog, { role: 'assistant', content: aiResponse }]), { expires: 7 });
+
     } catch (error) {
-      // 오류 발생 위치와 내용을 자세히 출력
-      if (error.response) {
-        // 서버가 응답을 반환한 경우
-        console.error('Error response data:', error.response.data);
-        console.error('Error response status:', error.response.status);
-        console.error('Error response headers:', error.response.headers);
-      } else if (error.request) {
-        // 요청이 만들어졌지만 응답을 받지 못한 경우
-        console.error('Error request:', error.request);
-      } else {
-        // 요청을 설정하는 중에 오류가 발생한 경우
-        console.error('Error message:', error.message);
-      }
-      console.error('Error config:', error.config);
+      console.error('Error:', error);
     }
   };
 
-  const handleKeyPress = (e) => { // 엔터 버튼 감지
+  // 엔터 키 눌렀을 때 메시지 전송
+  const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
       handleSendMessage();
     }
   };
+
+  // 채팅 로그가 업데이트될 때마다 스크롤 아래로 이동
+  useEffect(() => {
+    chatLogRef.current.scrollTop = chatLogRef.current.scrollHeight;
+  }, [chatLog]);
 
   return (
     <div className='map-info-chating'>
@@ -90,15 +88,15 @@ const Chating = () => {
       </div>
 
       <div className='chat-input-div'>
-        <input 
-          className='chat-input' 
-          placeholder="메시지" 
-          value={input} 
+        <input
+          className='chat-input'
+          placeholder="메시지"
+          value={input}
           onChange={handleInputChange}
           onKeyPress={handleKeyPress}
         />
-        <button 
-          className='chat-enterBtn' 
+        <button
+          className='chat-enterBtn'
           onClick={handleSendMessage}
         >
           &#10142;
