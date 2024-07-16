@@ -9,23 +9,23 @@ const Chating = () => {
     return savedChatLog ? JSON.parse(savedChatLog) : [];
   });
 
-  const [input, setInput] = useState(''); // 입력값 상태
-  const chatLogRef = useRef(null); // 채팅 로그 참조
 
-  // 입력값 변경 핸들러
+  const [input, setInput] = useState(''); // 입력값 상태
+  const chatLogRef = useRef(null); // 채팅 로그
+
+  // 입력값 변경
   const handleInputChange = (e) => {
     setInput(e.target.value);
   };
 
   // 메시지 전송 핸들러
   const handleSendMessage = async () => {
-    if (input.trim() === '') return; // 공백 메시지 확인
+    if (input.trim() === '') return; // 공백 확인
 
     const newChatLog = [...chatLog, { role: 'user', content: input }];
     setChatLog(newChatLog);
 
     setInput(''); // 입력값 초기화
-    chatLogRef.current.scrollTop = chatLogRef.current.scrollHeight;
 
     // 메시지 배열 생성 (사용자 메시지와 시스템 메시지)
     const messages = [
@@ -52,20 +52,15 @@ const Chating = () => {
       const aiResponse = response.data.choices[0].message.content.trim();
       setChatLog([...newChatLog, { role: 'assistant', content: aiResponse }]);
 
-      // 채팅창 스크롤 아래로 이동
-      setTimeout(() => {
-        chatLogRef.current.scrollTop = chatLogRef.current.scrollHeight;
-      }, 100);
-
-      // 채팅 로그를 쿠키에 저장
-      Cookies.set('chatLog', JSON.stringify([...newChatLog, { role: 'assistant', content: aiResponse }]), { expires: 7 });
+      // 채팅 로그 쿠키 저장
+      Cookies.set('chatLog', JSON.stringify([...newChatLog, { role: 'assistant', content: aiResponse }]), { expires: 1 });
 
     } catch (error) {
       console.error('Error:', error);
     }
   };
 
-  // 엔터 키 눌렀을 때 메시지 전송
+  // 엔터키
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
       handleSendMessage();

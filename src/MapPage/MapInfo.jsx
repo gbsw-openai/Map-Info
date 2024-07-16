@@ -13,11 +13,11 @@ const MapInfo = ({ position, address }) => {
       <div className='map-info-window'>
 
         <div className='map-info-window-contents'>
-          <div class="bookmark-button">
-            <img class="bookmark-icon" alt="Logo" src="img/bookmark-icon.png" style={{ width: '40px' }} />
+          <div className="bookmark-button">
+            <img className="bookmark-icon" alt="Logo" src="img/bookmark-icon.png" style={{ width: '40px' }} />
           </div>
-          <div class="store-info">
-            {/* 예시 입니다. */}
+          <div className="store-info">
+            {/* 예시입니다. */}
             이름<br/>
             영업 시간<br/>
             전화번호<br/>
@@ -31,11 +31,11 @@ const MapInfo = ({ position, address }) => {
         </div>
 
         <div className='map-info-window-contents'>
-          <div class="bookmark-button">
-            <img class="bookmark-icon" alt="Logo" src="img/bookmark-icon.png" style={{ width: '40px' }} />
+          <div className="bookmark-button">
+            <img className="bookmark-icon" alt="Logo" src="img/bookmark-icon.png" style={{ width: '40px' }} />
           </div>
-          <div class="store-info">
-            {/* 예시 입니다. */}
+          <div className="store-info">
+            {/* 예시입니다. */}
             이름<br/>
             영업 시간<br/>
             전화번호<br/>
@@ -49,11 +49,11 @@ const MapInfo = ({ position, address }) => {
         </div>
 
         <div className='map-info-window-contents'>
-          <div class="bookmark-button">
-            <img class="bookmark-icon" alt="Logo" src="img/bookmark-icon.png" style={{ width: '40px' }} />
+          <div className="bookmark-button">
+            <img className="bookmark-icon" alt="Logo" src="img/bookmark-icon.png" style={{ width: '40px' }} />
           </div>
-          <div class="store-info">
-            {/* 예시 입니다. */}
+          <div className="store-info">
+            {/* 예시입니다. */}
             이름<br/>
             영업 시간<br/>
             전화번호<br/>
@@ -65,7 +65,6 @@ const MapInfo = ({ position, address }) => {
             등등<br/>
           </div>
         </div>
-
       </div>
     </>
   );

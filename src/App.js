@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import Main from './Main.jsx';
 import MapPage from './MapPage/MapPage.jsx';
@@ -7,10 +7,15 @@ import Signup from './Login/Signup.jsx';
 import YesLogin from './Login/YesLogin.jsx';
 import NotLogin from './Login/NotLogin.jsx';
 import UserProfilePage from './UserProfilePage.jsx';
+import Cookies from 'js-cookie';
 
 function App() {
-  
   const [LoginORnot, setLoginORnot] = useState('not-login'); // 로그인 여부. 기본값은 'not-login'
+
+  useEffect(() => { // 페이지 로드 시 쿠키 초기화
+    Cookies.remove('chatLog');
+    Cookies.remove('mapinfo');
+  }, []);
 
   const LoginOR = (e) => {
     setLoginORnot(e);
@@ -40,3 +45,4 @@ function App() {
 }
 
 export default App;
+  

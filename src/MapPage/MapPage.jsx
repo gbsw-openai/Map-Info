@@ -16,22 +16,26 @@ const MapPage = () => {
     setPage(page);
   };
 
+  useEffect(() => { // 초기화가 안되어서 여기에 초기화를 한번더함
+    Cookies.remove('mapinfo');
+  }, []);
+
   // 위치 정보 쿠키
   useEffect(() => {
     if (position) {
-      Cookies.set('selectedPosition', JSON.stringify(position), { expires: 7 });
+      Cookies.set('mapinfo', JSON.stringify(position), { expires: 1 });
     }
   }, [position]);
 
-  // 페이지 로드 시 쿠키에서 위치 정보를 가져오는 효과
+  // 페이지 로드 시 쿠키에서 위치 정보를 가져오기
   useEffect(() => {
-    const storedPosition = Cookies.get('selectedPosition');
+    const storedPosition = Cookies.get('mapinfo');
     if (storedPosition) {
-      setPosition(JSON.parse(storedPosition)); // 쿠키에서 JSON 문자열을 파싱하여 위치 정보 설정
+      setPosition(JSON.parse(storedPosition));
     }
   }, []);
 
-  // 지도 초기화 및 클릭 이벤트 설정 효과
+  // 지도 초기화 및 클릭 이벤트 설정
   useEffect(() => {
     const initializeMap = (latitude, longitude) => {
       const container = document.getElementById('map');
@@ -65,7 +69,7 @@ const MapPage = () => {
     }
   }, [location]);
 
-  // 좌표를 주소로 변환하는 효과
+  // 좌표를 주소로 변환
   useEffect(() => {
     const getAddress = (lat, lng) => {
       let geocoder = new window.kakao.maps.services.Geocoder();
