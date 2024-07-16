@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import Main from './Main.jsx';
 import MapPage from './MapPage/MapPage.jsx';
 import Login from './Login/Login.jsx';
@@ -8,35 +9,33 @@ import NotLogin from './Login/NotLogin.jsx';
 import UserProfilePage from './UserProfilePage.jsx';
 
 function App() {
-  const [Page, setCurrentPage] = useState('main'); // 기본값은 'main'
-  const [LoginORnot, setLoginORnot] = useState('login'); // 로그인 여부. 기본값은 'not-login'
-
-  const ClickPageButtn = (page) => {
-    setCurrentPage(page);
-  };
+  
+  const [LoginORnot, setLoginORnot] = useState('not-login'); // 로그인 여부. 기본값은 'not-login'
 
   const LoginOR = (e) => {
     setLoginORnot(e);
   };
 
   return (
-    <>
+    <Router>
       <header>
-        <img alt="Logo" src="img/onlogo.png" style={{width: '30px'}}/>
+        <img alt="Logo" src="img/onlogo.png" style={{ width: '30px' }} />
         <div className="header-menuButton">
-          <div onClick={() => ClickPageButtn('main')}>MainPage</div>
-          <div onClick={() => ClickPageButtn('map')}>MapPage</div>
-          {LoginORnot === 'login' && <YesLogin ClickPageButtn={ClickPageButtn}/>}
-          {LoginORnot === 'not-login' && <NotLogin ClickPageButtn={ClickPageButtn} />}
+          <Link to="/" className='header-mainButton'>MainPage</Link>
+          <Link to="/map" className='header-mapButton'>MapPage</Link>
+          {LoginORnot === 'login' && <YesLogin />}
+          {LoginORnot === 'not-login' && <NotLogin />}
         </div>
       </header>
 
-      {Page === 'main' && <Main />}
-      {Page === 'map' && <MapPage />}
-      {Page === 'login' && <Login />}
-      {Page === 'signup' && <Signup />}
-      {Page === 'userProfile' && <UserProfilePage />}
-    </>
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/map" element={<MapPage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/userProfile" element={<UserProfilePage />} />
+      </Routes>
+    </Router>
   );
 }
 

@@ -1,11 +1,14 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
-function YesLogin({ ClickPageButtn }) {
+function YesLogin() {
+  const navigate = useNavigate();
+
   return (
     <>
-      <div className='user-profile' onClick={() => ClickPageButtn('userProfile')}>
+      <div className='user-profile' onClick={() => navigate('/userProfile')}>
         <div className='user-profile-name'>UserName</div>
-        <img className="user-profile-profile"/>
+        <img className="user-profile-profile" alt="User Profile" />
       </div>
     </>
   );
