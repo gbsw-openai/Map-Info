@@ -3,10 +3,9 @@ import { sign, verify } from 'jsonwebtoken'
 import { createDBconnection } from '../../db.config'
 import { UserDto } from '../../models/userModel'
 import { User } from '../../entities/user.entity'
+import path from 'path'
 
 const prisma = createDBconnection()
-
-
 
 const create = async (user: UserDto) => {
   const { id, email }: UserDto = user
@@ -15,7 +14,7 @@ const create = async (user: UserDto) => {
   if (await prisma.user.findUnique({ where: { id } })) return { status: 401, type: 'EXISTED' }
   if (await prisma.user.findUnique({ where: { email } })) return { status: 401, type: 'EXISTED' }
   
-  const defaultPic = 'uploads/'
+  const defaultPic = 'src\\uploads'
 
   const createQry = await prisma.user.create({
     data: { id, password: _password, email, userPic: defaultPic }
