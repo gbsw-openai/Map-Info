@@ -29,14 +29,15 @@ function Signup() {
     }
 
     try {
+      console.log(formData)
       // 서버로 데이터 전송
-      const response = await fetch('http://localhost:3000/api/user/register', {
+      const response = await fetch('http://localhost:3001/api/user/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          username: formData.username,
+          id: formData.username,
           email: formData.email,
           password: formData.password
         })
