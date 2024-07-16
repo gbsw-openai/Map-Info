@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import axios from 'axios'; // axios를 사용하여 HTTP 요청을 보낼 예정
+import { useNavigate } from 'react-router-dom';
 
 function Signup() {
   const [formData, setFormData] = useState({
@@ -10,7 +9,7 @@ function Signup() {
     confirmPassword: ''
   });
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,22 +23,32 @@ function Signup() {
     e.preventDefault();
 
     // 비밀번호 확인
-    if (formData.password.value !== formData.confirmPassword.value) {
+    if (formData.password !== formData.confirmPassword) {
       alert('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
       return;
     }
 
     try {
       // 서버로 데이터 전송
-      const response = await axios.post('http://localhost:3000/api/user/register', {
-        username: formData.username,
-        email: formData.email,
-        password: formData.password
+      const response = await fetch('http://localhost:3000/api/user/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          username: formData.username,
+          email: formData.email,
+          password: formData.password
+        })
       });
 
-      console.log('회원가입 성공:', response.data);
-      // 회원가입 성공 후 다음 페이지로 이동하거나 필요한 처리를 추가할 수 있습니다.
-      history.push('/Login.jsx'); // 예시: 로그인 페이지로 이동
+      if (response.ok) {
+        console.log('회원가입 성공');
+        navigate('/login'); // 회원가입 성공 후 로그인 페이지로 이동
+      } else {
+        console.error('회원가입 실패');
+        alert('회원가입 중 오류가 발생했습니다.');
+      }
     } catch (error) {
       console.error('회원가입 오류:', error);
       alert('회원가입 중 오류가 발생했습니다.');
