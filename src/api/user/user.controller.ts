@@ -23,4 +23,10 @@ const range = async (req: Request, res: Response) => {
   res.json(service)
 }
 
-module.exports = { register, login, range }
+const get = async (req: Request, res: Response) => {
+  const service = await userService.get(+req.params.idx)
+
+  res.json(service)
+}
+
+module.exports = { register, login, range, get }
