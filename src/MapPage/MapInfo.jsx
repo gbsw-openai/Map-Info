@@ -11,57 +11,61 @@ const MapInfo = ({ position, address }) => {
       </div>
 
       <div className='map-info-window'>
+
         <div className='map-info-window-contents'>
-          이름 : 가게 이름<br/>
-          영업 시간 : ??:??<br/>
-          등등 여러가지 정보<br/>
-          정보<br/>
-          정보<br/>
-          정보<br/>
-          정보<br/>
-          정보<br/>
-          정보<br/>
-          정보<br/>
+          <div class="bookmark-button">
+            <img class="bookmark-icon" alt="Logo" src="img/bookmark-icon.png" style={{ width: '40px' }} />
+          </div>
+          <div class="store-info">
+            {/* 예시 입니다. */}
+            이름<br/>
+            영업 시간<br/>
+            전화번호<br/>
+            가게상세위치<br/>
+            건물종류<br/>
+            가격<br/>
+            서비스 제공 여부<br/>
+            인기 메뉴 또는 상품<br/>
+            등등<br/>
+          </div>
         </div>
 
         <div className='map-info-window-contents'>
-          이름 : 가게 이름<br/>
-          영업 시간 : ??:??<br/>
-          등등 여러가지 정보<br/>
-          정보<br/>
-          정보<br/>
-          정보<br/>
-          정보<br/>
-          정보<br/>
-          정보<br/>
-          정보<br/>
+          <div class="bookmark-button">
+            <img class="bookmark-icon" alt="Logo" src="img/bookmark-icon.png" style={{ width: '40px' }} />
+          </div>
+          <div class="store-info">
+            {/* 예시 입니다. */}
+            이름<br/>
+            영업 시간<br/>
+            전화번호<br/>
+            가게상세위치<br/>
+            건물종류<br/>
+            가격<br/>
+            서비스 제공 여부<br/>
+            인기 메뉴 또는 상품<br/>
+            등등<br/>
+          </div>
         </div>
 
         <div className='map-info-window-contents'>
-          이름 : 가게 이름<br/>
-          영업 시간 : ??:??<br/>
-          등등 여러가지 정보<br/>
-          정보<br/>
-          정보<br/>
-          정보<br/>
-          정보<br/>
-          정보<br/>
-          정보<br/>
-          정보<br/>
+          <div class="bookmark-button">
+            <img class="bookmark-icon" alt="Logo" src="img/bookmark-icon.png" style={{ width: '40px' }} />
+          </div>
+          <div class="store-info">
+            {/* 예시 입니다. */}
+            이름<br/>
+            영업 시간<br/>
+            전화번호<br/>
+            가게상세위치<br/>
+            건물종류<br/>
+            가격<br/>
+            서비스 제공 여부<br/>
+            인기 메뉴 또는 상품<br/>
+            등등<br/>
+          </div>
         </div>
 
-        <div className='map-info-window-contents'>
-          이름 : 가게 이름<br/>
-          영업 시간 : ??:??<br/>
-          등등 여러가지 정보<br/>
-          정보<br/>
-          정보<br/>
-          정보<br/>
-          정보<br/>
-          정보<br/>
-          정보<br/>
-          정보<br/>
-        </div>
       </div>
     </>
   );

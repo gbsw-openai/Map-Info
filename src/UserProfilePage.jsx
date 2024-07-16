@@ -4,8 +4,7 @@ function UserProfilePage() {
   return (
     <div className="profilePage-container">
       <div className="profilePage-header">
-
-        <img className="profilePage-avatar"/>
+        <img className="profilePage-avatar" alt="User Profile" />
 
         <div className="profilePage-info">
           <h2 className="profilePage-name">UserName</h2>
@@ -16,14 +15,39 @@ function UserProfilePage() {
         <button className='logout-profile-button'>로그아웃</button>
 
       </div>
-      <div className="bookmark">
-        <h3>북마크 내역</h3>
+      <div class="bookmark">
+  <h3>북마크 내역</h3>
 
-        <div className='bookmark-container'>
-          <div className='bookmark-bookmark'>지역 이름 및 정보</div>
-        </div>
+  <div class="bookmark-container">
+    <div class="bookmark-info">지역 이름</div>
 
-      </div>
+    <div class="bookmark-button-group">
+      <div class="find-bookmarkButton">찾기</div>
+      <div class="delete-bookmarkButton">삭제</div>
+    </div>
+  </div>
+
+  <div class="bookmark-container">
+    <div class="bookmark-info">지역 이름</div>
+
+    <div class="bookmark-button-group">
+      <div class="find-bookmarkButton">찾기</div>
+      <div class="delete-bookmarkButton">삭제</div>
+    </div>
+  </div>
+
+  <div class="bookmark-container">
+    <div class="bookmark-info">지역 이름</div>
+
+    <div class="bookmark-button-group">
+      <div class="find-bookmarkButton">찾기</div>
+      <div class="delete-bookmarkButton">삭제</div>
+    </div>
+  </div>
+
+
+</div>
+
     </div>
   );
 }
