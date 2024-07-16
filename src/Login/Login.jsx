@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
   const [formData, setFormData] = useState({
     username: '',
     password: ''
   });
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,7 +38,7 @@ function Login() {
       if (response.ok && data.token) {
         console.log('로그인 성공');
         console.log('Received token:', data.token); // 서버에서 받은 토큰을 출력합니다.
-
+        navigate("/")
         // 로그인 성공 후 수행할 작업 추가
       } else if (response.status === 401) {
         console.error('로그인 실패:', data.type);
