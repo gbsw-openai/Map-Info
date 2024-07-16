@@ -14,3 +14,9 @@ model user {
   email     String  @unique
   userPic   String
 }
+
+model Bookmakr {
+  mark_id   Int     @id @default(autoincrement())
+  name      String
+  address   String  @unique
+}

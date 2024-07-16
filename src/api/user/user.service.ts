@@ -3,7 +3,6 @@ import { sign, verify } from 'jsonwebtoken'
 import { createDBconnection } from '../../db.config'
 import { UserDto } from '../../models/userModel'
 import { User } from '../../entities/user.entity'
-import path from 'path'
 
 const prisma = createDBconnection()
 
