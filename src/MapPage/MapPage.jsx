@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import useGeoLocation from "./useGeolocation.jsx";
 import MapInfo from "./MapInfo.jsx";
-import ChatTing from "./ChatTing.jsx";
+import ChatTing from "./Chating.jsx";
 
 
 const MapPage = () => {

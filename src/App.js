@@ -26,8 +26,6 @@ function App() {
         <div className="header-menuButton">
           <div onClick={() => ClickPageButtn('main')}>MainPage</div>
           <div onClick={() => ClickPageButtn('map')}>MapPage</div>
-          <div>Page</div>
-          <div>Page</div>
           {LoginORnot === 'login' && <YesLogin ClickPageButtn={ClickPageButtn}/>}
           {LoginORnot === 'not-login' && <NotLogin ClickPageButtn={ClickPageButtn} />}
         </div>

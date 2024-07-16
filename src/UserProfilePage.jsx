@@ -12,18 +12,18 @@ function UserProfilePage() {
           <p className="profilePage-email">user@gmail.com</p>
         </div>
 
-      </div>
-      <div className="profilePage-bio">
-        <h3>북마크 내역</h3>
-        <p>지역 이름 및 정보</p>
-        <p>지역 이름 및 정보</p>
-        <p>지역 이름 및 정보</p>
-        <p>지역 이름 및 정보</p>
-        <p>지역 이름 및 정보</p>
-        <p>지역 이름 및 정보</p>
-      </div>
+        <button className="edit-profile-button">수정</button>
+        <button className='logout-profile-button'>로그아웃</button>
 
-      <button className="edit-profile-button">수정</button>
+      </div>
+      <div className="bookmark">
+        <h3>북마크 내역</h3>
+
+        <div className='bookmark-container'>
+          <div className='bookmark-bookmark'>지역 이름 및 정보</div>
+        </div>
+
+      </div>
     </div>
   );
 }
