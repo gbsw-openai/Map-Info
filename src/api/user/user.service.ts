@@ -1,4 +1,3 @@
-
 import { hash, compare } from 'bcryptjs'
 import { sign, verify } from 'jsonwebtoken'
 import { createDBconnection } from '../../db.config'
@@ -7,14 +6,19 @@ import { User } from '../../entities/user.entity'
 
 const prisma = createDBconnection()
 
-const create = async (user: UserDto) => {
-  const { id }: UserDto = user
-  const _password = (await hash(user.password, 10)).toString()
 
+
+const create = async (user: UserDto) => {
+  const { id, email }: UserDto = user
+  const _password = (await hash(user.password, 10)).toString()
+  
   if (await prisma.user.findUnique({ where: { id } })) return { status: 401, type: 'EXISTED' }
+  if (await prisma.user.findUnique({ where: { email } })) return { status: 401, type: 'EXISTED' }
+  
+  const defaultPic = 'uploads/'
 
   const createQry = await prisma.user.create({
-    data: { id, password: _password }
+    data: { id, password: _password, email, userPic: defaultPic }
   })
 
   return { status: 200, message: createQry }
@@ -39,4 +43,14 @@ const take = async (range: number) => {
   return { status: 200, qry: await prisma.user.findMany({ take: range }) }
 }
 
-export { create, login, take }
+const get = async (idx: number) => {
+  return { status: 200, qry: await prisma.user.findUnique({ where: { idx: idx } }) }
+}
+
+const updateUserPic = async (idx: number, imgPath: string) => {
+  const userPic = imgPath
+  const updateQry = await prisma.user.update({ where: { idx }, data: { userPic } })
+  return { status: 201, message: updateQry }
+}
+
+export { create, login, take, get, updateUserPic }
