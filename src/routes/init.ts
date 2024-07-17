@@ -16,4 +16,10 @@ router.use('/openai', openai);
 const user = require('./user/user')
 router.use('/user', user);
 
+const bookmark = require('./user/bookmark')
+router.use('/user/bookmark', bookmark)
+
+const post = require('./user/post')
+router.use('/user', post)
+
 module.exports = router

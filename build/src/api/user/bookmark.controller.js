@@ -9,23 +9,22 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const userService = require('./user.service');
-const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = req.body;
-    const service = yield userService.create(user);
+exports.remove = exports.get = exports.add = void 0;
+const bookmarkService = require('./bookmark.service');
+const add = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const bookmark = req.body;
+    const service = yield bookmarkService.create(bookmark);
     res.json(service);
 });
-const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = req.body;
-    const service = yield userService.login(user);
-    res.json(service);
-});
-const range = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const service = yield userService.take(+req.params.idx);
-    res.json(service);
-});
+exports.add = add;
 const get = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const service = yield userService.get(req.params.id);
+    const service = yield bookmarkService.read(req.params.id);
     res.json(service);
 });
-module.exports = { register, login, range, get };
+exports.get = get;
+const remove = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const bookmark = req.body;
+    const service = yield bookmarkService.remove(bookmark);
+    res.json(service);
+});
+exports.remove = remove;

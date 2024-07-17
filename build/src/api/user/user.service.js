@@ -16,14 +16,14 @@ const db_config_1 = require("../../db.config");
 const prisma = (0, db_config_1.createDBconnection)();
 const create = (user) => __awaiter(void 0, void 0, void 0, function* () {
     const { id, email } = user;
-    const _password = (yield (0, bcryptjs_1.hash)(user.password, 10)).toString();
+    const _password = (yield (0, bcryptjs_1.hash)(user.password, 10));
     if (yield prisma.user.findUnique({ where: { id } }))
-        return { status: 401, type: 'EXISTED' };
+        return { status: 401, type: 'ID EXISTED' };
     if (yield prisma.user.findUnique({ where: { email } }))
-        return { status: 401, type: 'EXISTED' };
-    const defaultPic = 'src\\uploads';
+        return { status: 401, type: 'EMAIL EXISTED' };
+    const defaultPic = 'uploads';
     const createQry = yield prisma.user.create({
-        data: { id, password: _password, email, userPic: defaultPic }
+        data: { id, password: _password, email, userPic: defaultPic, bookmark: {} }
     });
     return { status: 200, message: createQry };
 });
@@ -44,8 +44,8 @@ const take = (range) => __awaiter(void 0, void 0, void 0, function* () {
     return { status: 200, qry: yield prisma.user.findMany({ take: range }) };
 });
 exports.take = take;
-const get = (idx) => __awaiter(void 0, void 0, void 0, function* () {
-    return { status: 200, qry: yield prisma.user.findUnique({ where: { idx: idx } }) };
+const get = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    return { status: 200, qry: yield prisma.user.findUnique({ where: { id } }) };
 });
 exports.get = get;
 const updateUserPic = (idx, imgPath) => __awaiter(void 0, void 0, void 0, function* () {

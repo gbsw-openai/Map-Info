@@ -7,16 +7,23 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model user {
+model User {
   idx       Int     @id @default(autoincrement())
   id        String  @unique
   password  String
   email     String  @unique
   userPic   String
+
+  bookmark  Bookmark[]
 }
 
-model Bookmakr {
+model Bookmark {
   mark_id   Int     @id @default(autoincrement())
   name      String
-  address   String  @unique
+  address   String
+  userId    String
+
+  user      User    @relation(fields: [userId], references: [id])
+
+  @@unique([userId, address])
 }

@@ -1,5 +1,5 @@
 import { hash, compare } from 'bcryptjs'
-import { sign, verify } from 'jsonwebtoken'
+import { sign } from 'jsonwebtoken'
 import { createDBconnection } from '../../db.config'
 import { UserDto } from '../../models/userModel'
 import { User } from '../../entities/user.entity'
@@ -8,15 +8,15 @@ const prisma = createDBconnection()
 
 const create = async (user: UserDto) => {
   const { id, email }: UserDto = user
-  const _password = (await hash(user.password, 10)).toString()
+  const _password = (await hash(user.password, 10))
   
-  if (await prisma.user.findUnique({ where: { id } })) return { status: 401, type: 'EXISTED' }
-  if (await prisma.user.findUnique({ where: { email } })) return { status: 401, type: 'EXISTED' }
+  if (await prisma.user.findUnique({ where: { id } })) return { status: 401, type: 'ID EXISTED' }
+  if (await prisma.user.findUnique({ where: { email } })) return { status: 401, type: 'EMAIL EXISTED' }
   
-  const defaultPic = 'src\\uploads'
+  const defaultPic = 'uploads'
 
   const createQry = await prisma.user.create({
-    data: { id, password: _password, email, userPic: defaultPic }
+    data: { id, password: _password, email, userPic: defaultPic, bookmark: {} }
   })
 
   return { status: 200, message: createQry }
@@ -41,8 +41,8 @@ const take = async (range: number) => {
   return { status: 200, qry: await prisma.user.findMany({ take: range }) }
 }
 
-const get = async (idx: number) => {
-  return { status: 200, qry: await prisma.user.findUnique({ where: { idx: idx } }) }
+const get = async (id: string) => {
+  return { status: 200, qry: await prisma.user.findUnique({ where: { id } }) }
 }
 
 const updateUserPic = async (idx: number, imgPath: string) => {

@@ -7,16 +7,16 @@ const router: Router = Router()
 const userController = require('../../api/user/user.controller')
 
 try {
-  fs.readdirSync('src/uploads')
+  fs.readdirSync('uploads')
 } catch (error) {
   console.error('uploads 폴더가 없어 uploads 폴더를 생성합니다.');
-  fs.mkdirSync('src/uploads')
+  fs.mkdirSync('uploads')
 }
 
 const upload = multer({
   storage: multer.diskStorage({
     destination(req, file, done) {
-      done(null, 'src/uploads/')
+      done(null, 'uploads/')
     },
     filename(req, file, done) {
       const ext = path.extname(file.originalname)
@@ -26,6 +26,8 @@ const upload = multer({
   limits: { fieldSize: 5 * 1024 * 1024},
 })
 
-router.post('/pic/:idx', upload.single('image'), userController.picture)
+router.post('/pic/:idx', upload.single('image'), function(req, res) {
+  userController.picture
+})
 
 module.exports = router

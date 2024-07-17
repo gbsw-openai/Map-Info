@@ -24,7 +24,7 @@ const range = async (req: Request, res: Response) => {
 }
 
 const get = async (req: Request, res: Response) => {
-  const service = await userService.get(+req.params.idx)
+  const service = await userService.get(req.params.id)
 
   res.json(service)
 }
